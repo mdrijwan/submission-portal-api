@@ -1,0 +1,67 @@
+service: ${self:custom.serviceName}-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  timeout: 30
+  apiGateway:
+    binaryMediaTypes:
+      - multipart/form-data
+    description: An API to upload images to S3 Bucket and extract information
+    request:
+      schemas:
+        request-model:
+          name: RequestModel
+          schema: ${file(./src/validator/request.json)}
+          description: "A model validation for status request"
+        submit-file-model:
+          name: SubmitFileModel
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+          description: "A model validation for file submission"
+  deploymentBucket:
+    name: ${self:provider.environment.DEPLOY}
+  environment:
+    LIMIT: 50000000
+    SERVICE: submission-portal
+    DEPLOY: mdrijwan-${self:custom.serviceName}-api-${opt:stage, self:provider.stage}
+    UPLOAD: mdrijwan-${self:custom.serviceName}-upload-${opt:stage, self:provider.stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:*
+          Resource: arn:aws:s3:::${self:provider.environment.UPLOAD}/*
+
+custom:
+  serviceName: submission-portal
+
+configValidationMode: warn
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  submitFile:
+    handler: src/api/submit.handler
+    name: submit-file
+    description: A lambda handler that uploads file to an S3 bucket and extract data.
+    memorySize: 1024
+    events:
+      - http:
+          path: submit
+          method: POST
+          cors: true
+          # request:
+          #   schemas:
+          #     multipart/form-data: submit-file-model
+
+
