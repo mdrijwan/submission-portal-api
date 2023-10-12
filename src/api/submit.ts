@@ -2,8 +2,9 @@ import { parse } from 'lambda-multipart-parser'
 import { formatResponse, s3Upload } from '../helpers/util'
 import { StatusCode } from '../helpers/enums'
 import { fileInfoModel, s3DataModel, s3ParamsModel } from '../helpers/model'
+import { APIGatewayProxyEvent } from 'aws-lambda'
 
-export const handler = async (event) => {
+export const handler = async (event: APIGatewayProxyEvent) => {
   try {
     const username: string = event.headers.username
       ? event.headers.username
@@ -20,16 +21,17 @@ export const handler = async (event) => {
     for (let i = 0; i < result.files.length; i++) {
       const docFile = result.files[i]
       const docParam: s3ParamsModel = {
-        Bucket: process.env.UPLOAD,
+        Bucket: process.env.UPLOAD as string,
         Key: `images/${username}/${docFile.fieldname}-${new Date()
           .toISOString()
           .replace('.', '-')}-${docFile.filename
           .split(' ')
           .join('-')}`.toLowerCase(),
-        Body: docFile.content,
+        Body: docFile.content as unknown as string,
         ContentType: docFile.contentType,
       }
       const uploadInfo = await s3Upload(docParam)
+
       const fileInfo: fileInfoModel = {
         fileName: docFile.fieldname,
         fileSize: uploadInfo.size,
@@ -46,6 +48,6 @@ export const handler = async (event) => {
   } catch (error) {
     console.error(error)
 
-    return formatResponse(StatusCode.ERROR, error.message)
+    return formatResponse(StatusCode.ERROR, error)
   }
 }
