@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
-    "start": "nodemon -e ts --watch \"src/**/*.ts\" --exec \"sls offline start --verbose\"",
+    "format": "prettier --write --cache 'src/**/*.ts'",
+    "code-check": "npm run format && npm run lint:fix",
+    "start": "nodemon -e ts --watch \"src/**/*.ts\" --exec \"sls offline start --verbose --noAuth --noTimeout\"",
     "predeploy": "sls deploy --config serverless.data.yml --verbose",
     "deploy": "sls deploy --verbose",
     "swagger": "sls downloadDocumentation --outputFileName=swagger.json"
@@ -24,6 +26,7 @@
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",
+    "@types/aws-lambda": "^8.10.124",
     "@types/node": "^20.8.4",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
