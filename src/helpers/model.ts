@@ -17,6 +17,6 @@ export type fileInfoModel = {
 export type s3ParamsModel = {
   Bucket: string
   Key: string
-  Body: object
+  Body: string
   ContentType: string
 }
