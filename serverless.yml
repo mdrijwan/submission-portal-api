@@ -30,6 +30,7 @@ provider:
   environment:
     LIMIT: 50000000
     SERVICE: submission-portal
+    SSM: /${self:service}/${opt:stage, self:provider.stage}
     DEPLOY: mdrijwan-${self:custom.serviceName}-api-${opt:stage, self:provider.stage}
     UPLOAD: mdrijwan-${self:custom.serviceName}-upload-${opt:stage, self:provider.stage}
   iam:
@@ -39,9 +40,16 @@ provider:
           Action:
             - s3:*
           Resource: arn:aws:s3:::${self:provider.environment.UPLOAD}/*
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource: arn:aws:ssm:${self:provider.region}:${self:custom.account}:parameter${self:custom.ssm}
 
 custom:
+  account: ${aws:accountId}
   serviceName: submission-portal
+  cognito: ${self:custom.ssm}/cognito
+  ssm: ${self:provider.environment.SSM}
 
 configValidationMode: warn
 
@@ -60,8 +68,7 @@ functions:
           path: submit
           method: POST
           cors: true
-          # request:
-          #   schemas:
-          #     multipart/form-data: submit-file-model
+          authorizer:
+            arn: arn:aws:cognito-idp:${self:provider.region}:${self:custom.account}:userpool/${ssm:${self:custom.cognito}}
 
 
