@@ -1,8 +1,9 @@
 export type s3DataModel = {
   message: string
-  owner: string
-  numberOfFiles: number
-  files: fileInfoModel[]
+  user: string
+  email: string
+  filesUploaded: number
+  files: object[]
 }
 
 export type fileInfoModel = {
@@ -19,4 +20,14 @@ export type s3ParamsModel = {
   Key: string
   Body: string
   ContentType: string
+}
+
+export type uploadInfoModel = {
+  filesUploaded: number
+  files: fileInfoModel[]
+}
+
+export type userInfoModel = {
+  user: string
+  email: string
 }
