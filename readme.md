@@ -22,3 +22,14 @@ To check the code limting:
 
 To fix the issues with code limting:
 `npm run lint:fix`
+
+To generate the swagger doc:
+`npm run swagger`
+
+### API Diagram
+
+<img src="/src/resources/api-diagram.png" alt="API Diagram"/>
+
+### API Documentation
+
+[swagger](https://github.com/mdrijwan/submission-portal-api/blob/main/submission-portal-api-dev-swagger-postman.yaml)
