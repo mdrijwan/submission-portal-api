@@ -32,4 +32,4 @@ To generate the swagger doc:
 
 ### API Documentation
 
-[swagger](https://github.com/mdrijwan/submission-portal-api/blob/main/submission-portal-api-dev-swagger-postman.yaml)
+[swagger](https://mdrijwan.github.io/submission-portal-api/)
