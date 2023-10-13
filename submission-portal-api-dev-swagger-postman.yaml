@@ -1,0 +1,37 @@
+---
+swagger: "2.0"
+info:
+  description: "An API to upload images to S3 Bucket and extract information"
+  version: "2023-10-13T19:24:28Z"
+  title: "dev-submission-portal-api"
+host: "q6bk4brf16.execute-api.us-east-1.amazonaws.com"
+basePath: "/dev"
+schemes:
+- "https"
+paths:
+  /submit:
+    post:
+      responses: {}
+      security:
+      - "1_MJlZ6nufg": []
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+securityDefinitions:
+  "1_MJlZ6nufg":
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+    x-amazon-apigateway-authtype: "cognito_user_pools"
