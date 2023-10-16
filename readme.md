@@ -37,3 +37,11 @@ To generate the swagger doc:
 ### App Integratioon
 
 This backend service is integrated with the [Submission Portal App](https://github.com/mdrijwan/submission-portal-web). Only authenticated users from the app can access the API.
+
+### Try the API
+
+You can checkout the API here
+[Submission Portal API](https://304ewez0o6.execute-api.us-east-1.amazonaws.com/dev/submit).
+
+The postman documentaion is available here:
+[PostmanDoc](https://github.com/mdrijwan/submission-portal-api/blob/main/submission-portal-api-dev-swagger-postman.yaml).
