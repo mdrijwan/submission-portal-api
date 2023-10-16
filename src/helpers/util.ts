@@ -1,24 +1,48 @@
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import {
   DeleteObjectCommand,
+  HeadObjectCommand,
   PutObjectCommand,
   S3Client,
-  HeadObjectCommand,
 } from '@aws-sdk/client-s3'
+import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb'
 import { units } from './constants'
+import { ErrorType } from './enums'
 import { s3ParamsModel } from './model'
 
-const s3 = new S3Client({ region: process.env.AWS_REGION })
+const config = { region: process.env.AWS_REGION }
+const table = process.env.TABLE
+const s3 = new S3Client(config)
+const ddbClient = new DynamoDBClient(config)
+const documentClient = DynamoDBDocumentClient.from(ddbClient)
 
 export const formatResponse = (statusCode: number, response) => ({
   statusCode,
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers':
-      'Origin, X-Requested-With, Content-Type, Accept, Authorization, username',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization, id, name, email',
   },
   body: JSON.stringify(response, null, '\t'),
 })
 
+export const createData = async function (item) {
+  const input = {
+    TableName: table,
+    Item: {
+      uploadId: item.uploadId,
+      userId: item.id,
+      userName: item.user,
+      userEmail: item.email,
+      filesUploaded: item.filesUploaded,
+      files: item.files,
+    },
+  }
+  const command = new PutCommand(input)
+  await documentClient.send(command)
+
+  return item
+}
 export const s3Upload = async function (params: s3ParamsModel) {
   try {
     await s3.send(new PutObjectCommand(params))
@@ -42,7 +66,7 @@ export const s3Upload = async function (params: s3ParamsModel) {
   } catch (error) {
     console.log('S3 Upload Error', error)
 
-    return error
+    throw new error(ErrorType.UPLOAD)
   }
 }
 
