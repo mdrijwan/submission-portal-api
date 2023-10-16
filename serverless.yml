@@ -33,6 +33,7 @@ provider:
     SSM: /${self:service}/${opt:stage, self:provider.stage}
     DEPLOY: mdrijwan-${self:custom.serviceName}-api-${opt:stage, self:provider.stage}
     UPLOAD: mdrijwan-${self:custom.serviceName}-upload-${opt:stage, self:provider.stage}
+    TABLE: mdrijwan-${self:provider.environment.SERVICE}-table-${opt:stage, self:provider.stage}
   iam:
     role:
       statements:
@@ -44,6 +45,10 @@ provider:
           Action:
             - ssm:GetParameter
           Resource: arn:aws:ssm:${self:provider.region}:${self:custom.account}:parameter${self:custom.ssm}
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.TABLE}*'
 
 custom:
   account: ${aws:accountId}
