@@ -33,3 +33,7 @@ To generate the swagger doc:
 ### API Documentation
 
 [swagger](https://mdrijwan.github.io/submission-portal-api/)
+
+### App Integratioon
+
+This backend service is integrated with the [Submission Portal App](https://github.com/mdrijwan/submission-portal-web). Only authenticated users from the app can access the API.
