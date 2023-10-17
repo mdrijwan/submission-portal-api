@@ -1,6 +1,11 @@
 import { v4 as uuidv4 } from 'uuid'
 import { parse } from 'lambda-multipart-parser'
-import { createData, formatResponse, s3Upload } from '../helpers/util'
+import {
+  createData,
+  fileDeleted,
+  formatResponse,
+  s3Upload,
+} from '../helpers/util'
 import { ErrorType, StatusCode } from '../helpers/enums'
 import {
   s3DataModel,
@@ -43,13 +48,10 @@ export const handler = async (event: APIGatewayProxyEvent) => {
       ...userInfo,
       ...uploadInfo,
     }
-    console.log('USER INFO', userInfo)
-    // console.log('UPLOAD INFO', uploadInfo)
-    // console.log('CLAIMS', event.requestContext.authorizer.claims)
+    // console.log('DATA', data)
 
     for (let i = 0; i < result.files.length; i++) {
       const docFile = result.files[i]
-
       const docParam: s3ParamsModel = {
         Bucket: process.env.UPLOAD as string,
         Key: `images/${userName.replace(/ /g, '-')}/${
@@ -60,7 +62,6 @@ export const handler = async (event: APIGatewayProxyEvent) => {
         Body: docFile.content as unknown as string,
         ContentType: docFile.contentType,
       }
-
       const s3Info = await s3Upload(docParam)
       const fileInfo: fileInfoModel = {
         fileName: docFile.fieldname,
@@ -76,14 +77,14 @@ export const handler = async (event: APIGatewayProxyEvent) => {
     const item = {
       uploadId: uuidv4(),
       ...data,
+      fileDeleted: fileDeleted(data.files),
     }
-    // console.log('ITEMS', item)
     const inputData = await createData(item)
 
     if (!inputData) {
       return formatResponse(StatusCode.ERROR, ErrorType.DATA)
     }
-    // console.log('DATA', inputData)
+    // console.log('INPUT', inputData)
 
     return formatResponse(StatusCode.SUCCESS, data)
   } catch (error) {
