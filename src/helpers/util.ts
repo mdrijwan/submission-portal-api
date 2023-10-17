@@ -35,6 +35,7 @@ export const createData = async function (item) {
       userName: item.user,
       userEmail: item.email,
       filesUploaded: item.filesUploaded,
+      fileDeleted: item.fileDeleted,
       files: item.files,
     },
   }
@@ -104,4 +105,12 @@ function formatBytes(bite) {
   }
 
   return n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l]
+}
+
+export const fileDeleted = (files: object[]) => {
+  const result = files.filter(
+    (i: { fileStatus: string }) => i.fileStatus === 'deleted'
+  )
+
+  return result.length
 }
