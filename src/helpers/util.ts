@@ -46,6 +46,7 @@ export const createData = async function (item) {
   }
   const command = new PutCommand(input)
   await docClient.send(command)
+  console.log('Document created')
 
   return item
 }
@@ -94,6 +95,7 @@ export const getUserData = async function (email) {
 export const s3Upload = async function (params: s3ParamsModel) {
   try {
     await s3.send(new PutObjectCommand(params))
+    console.log('Document uploaded')
     const location = `s3://${params.Bucket}/${params.Key}`
     const key = params.Key
     const response = await s3Info(params)
