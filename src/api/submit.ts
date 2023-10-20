@@ -16,7 +16,7 @@ import {
 } from '../helpers/model'
 import { APIGatewayProxyEvent } from 'aws-lambda'
 
-export const handler = async (event: APIGatewayProxyEvent) => {
+export const upload = async (event: APIGatewayProxyEvent) => {
   try {
     const userId = process.env.IS_OFFLINE
       ? event.headers.id
