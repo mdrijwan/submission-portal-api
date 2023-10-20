@@ -1,11 +1,16 @@
-import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb'
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import {
   DeleteObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3'
-import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb'
+import {
+  DynamoDBDocumentClient,
+  GetCommand,
+  PutCommand,
+  QueryCommand,
+} from '@aws-sdk/lib-dynamodb'
 import { units } from './constants'
 import { ErrorType } from './enums'
 import { s3ParamsModel } from './model'
@@ -14,7 +19,7 @@ const config = { region: process.env.AWS_REGION }
 const table = process.env.TABLE
 const s3 = new S3Client(config)
 const ddbClient = new DynamoDBClient(config)
-const documentClient = DynamoDBDocumentClient.from(ddbClient)
+const docClient = DynamoDBDocumentClient.from(ddbClient)
 
 export const formatResponse = (statusCode: number, response) => ({
   statusCode,
@@ -40,12 +45,13 @@ export const createData = async function (item) {
     },
   }
   const command = new PutCommand(input)
-  await documentClient.send(command)
+  await docClient.send(command)
 
   return item
 }
 
-export const getData = async function (uploadId, userId) {
+export const getUploadData = async function (uploadId, userId) {
+  let item
   const input = {
     TableName: table,
     Key: {
@@ -53,10 +59,37 @@ export const getData = async function (uploadId, userId) {
       userId: userId,
     },
   }
-  const command = new GetItemCommand(input)
-  const response = await ddbClient.send(command)
+  try {
+    const command = new GetCommand(input)
+    const result = await docClient.send(command)
 
-  return response
+    if (result.Item) {
+      item = Object.assign(result.Item)
+    }
+
+    return item
+  } catch (error) {
+    console.log('ERROR', error)
+    return error
+  }
+}
+
+export const getUserData = async function (email) {
+  const input = {
+    TableName: table,
+    IndexName: 'Submission-Portal-index',
+    KeyConditionExpression: 'userEmail = :email',
+    ExpressionAttributeValues: { ':email': email },
+  }
+  try {
+    const command = new QueryCommand(input)
+    const result = await docClient.send(command)
+
+    return result.Items
+  } catch (error) {
+    console.log('ERROR', error)
+    return error
+  }
 }
 export const s3Upload = async function (params: s3ParamsModel) {
   try {
