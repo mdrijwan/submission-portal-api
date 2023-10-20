@@ -63,6 +63,11 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mdrijwan/submission-portal-api.git"
