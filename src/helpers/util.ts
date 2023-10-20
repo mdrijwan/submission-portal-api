@@ -45,11 +45,12 @@ export const createData = async function (item) {
   return item
 }
 
-export const getData = async function (id) {
+export const getData = async function (uploadId, userId) {
   const input = {
     TableName: table,
     Key: {
-      uploadId: id,
+      uploadId: uploadId,
+      userId: userId,
     },
   }
   const command = new GetItemCommand(input)
