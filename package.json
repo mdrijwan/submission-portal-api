@@ -12,9 +12,7 @@
     "postinstall": "husky install",
     "start": "nodemon -e ts --watch \"src/**/*.ts\" --exec \"sls offline start --verbose --noAuth --noTimeout\"",
     "predeploy": "sls deploy --config serverless.data.yml --verbose",
-    "deploy": "sls deploy --verbose",
-    "swagger": "sls downloadDocumentation --outputFileName=swagger.json",
-    "semantic-release": "semantic-release"
+    "deploy": "sls deploy --verbose"
   },
   "keywords": [
     "S3",
@@ -62,14 +60,5 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
-  },
-  "release": {
-    "branches": [
-      "main"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mdrijwan/submission-portal-api.git"
   }
 }
