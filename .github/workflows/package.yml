@@ -1,14 +1,13 @@
 name: Package
 
 on:
-  workflow_run:
-    workflows: [Tests]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   release:
-    if: ${{ github.ref_name == 'main' && github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.ref_name == 'main'}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
