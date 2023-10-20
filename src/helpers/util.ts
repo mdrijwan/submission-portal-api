@@ -44,11 +44,16 @@ export const createData = async function (item) {
       files: item.files,
     },
   }
-  const command = new PutCommand(input)
-  await docClient.send(command)
-  console.log('Document created')
+  try {
+    const command = new PutCommand(input)
+    const response = await docClient.send(command)
+    console.log('Document created', response)
 
-  return item
+    return item
+  } catch (error) {
+    console.log('ERROR', error)
+    return error
+  }
 }
 
 export const getUploadData = async function (uploadId, userId) {
