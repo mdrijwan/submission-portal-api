@@ -1,4 +1,4 @@
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
+import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb'
 import {
   DeleteObjectCommand,
   HeadObjectCommand,
@@ -43,6 +43,19 @@ export const createData = async function (item) {
   await documentClient.send(command)
 
   return item
+}
+
+export const getData = async function (id) {
+  const input = {
+    TableName: table,
+    Key: {
+      uploadId: id,
+    },
+  }
+  const command = new GetItemCommand(input)
+  const response = await ddbClient.send(command)
+
+  return response
 }
 export const s3Upload = async function (params: s3ParamsModel) {
   try {
