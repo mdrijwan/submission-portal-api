@@ -82,8 +82,8 @@ functions:
     memorySize: 256
     events:
       - http:
-          path: get/upload/{uploadId}
-          method: POST
+          path: upload/{uploadId}
+          method: GET
           cors: true
           authorizer:
             arn: arn:aws:cognito-idp:${self:provider.region}:${self:custom.account}:userpool/${ssm:${self:custom.cognito}}
@@ -94,8 +94,8 @@ functions:
     memorySize: 256
     events:
       - http:
-          path: get/user/{userId}
-          method: POST
+          path: user/{userId}
+          method: GET
           cors: true
           authorizer:
             arn: arn:aws:cognito-idp:${self:provider.region}:${self:custom.account}:userpool/${ssm:${self:custom.cognito}}
