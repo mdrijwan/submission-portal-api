@@ -1,6 +1,6 @@
 {
   "name": "submission-portal-api",
-  "version": "1.0.5",
+  "version": "0.0.0-development",
   "description": "upload files and get information back to user",
   "main": "index.js",
   "scripts": {
