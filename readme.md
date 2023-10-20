@@ -32,6 +32,7 @@ To generate the swagger doc:
 
 ### API Documentation
 
+You can checkout the swagger doc here
 [swagger](https://mdrijwan.github.io/submission-portal-api/)
 
 ### App Integratioon
