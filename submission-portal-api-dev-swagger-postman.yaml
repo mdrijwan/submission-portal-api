@@ -1,8 +1,7 @@
----
 swagger: "2.0"
 info:
   description: "An API to upload images to S3 Bucket and extract information"
-  version: "2023-10-16T14:15:05Z"
+  version: "1.7.2"
   title: "dev-submission-portal-api"
 host: "304ewez0o6.execute-api.us-east-1.amazonaws.com"
 basePath: "/dev"
@@ -29,9 +28,69 @@ paths:
               type: "string"
             Access-Control-Allow-Headers:
               type: "string"
+  /upload/{uploadId}:
+    get:
+      parameters:
+      - name: "uploadId"
+        in: "path"
+        required: true
+        type: "string"
+      responses: {}
+      security:
+      - "1_MJlZ6nufg": []
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "uploadId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /user/{userId}:
+    get:
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses: {}
+      security:
+      - "1_MJlZ6nufg": []
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
 securityDefinitions:
   "1_MJlZ6nufg":
-    type: "apiKey"
+    type: "JWT"
     name: "Authorization"
     in: "header"
     x-amazon-apigateway-authtype: "cognito_user_pools"
