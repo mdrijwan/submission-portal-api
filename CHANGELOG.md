@@ -1,3 +1,17 @@
+ChangeLogs
+
+## [1.7.6](https://github.com/mdrijwan/submission-portal-api/compare/v1.7.5...v1.7.6) (2023-10-25)
+
+
+### :repeat: CI
+
+* **npm:** updating release configuration for npm publish ([37cf4ef](https://github.com/mdrijwan/submission-portal-api/commit/37cf4ef8a63286fb16f3d91e6cb33763bc577a9e))
+
+
+### :dependabot: Build
+
+* modifying eslint config ([5446eb4](https://github.com/mdrijwan/submission-portal-api/commit/5446eb4f16c61169fa046d83fb2c1ab70b8883c7))
+
 ## [1.7.5](https://github.com/mdrijwan/submission-portal-api/compare/v1.7.4...v1.7.5) (2023-10-25)
 
 
