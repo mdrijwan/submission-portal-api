@@ -69,9 +69,13 @@ export const getUploadData = async function (uploadId, userId) {
     const command = new GetCommand(input)
     const result = await docClient.send(command)
 
-    if (result.Item) {
+    if (!result.Item) {
+      return 'No Items were matched against the UserId'
+    } else {
       item = Object.assign(result.Item)
     }
+
+    // console.log('ITEM', item)
 
     return item
   } catch (error) {
