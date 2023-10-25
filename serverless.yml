@@ -12,10 +12,6 @@ provider:
     description: An API to upload images to S3 Bucket and extract information
     request:
       schemas:
-        request-model:
-          name: RequestModel
-          schema: ${file(./src/validator/request.json)}
-          description: "A model validation for status request"
         submit-file-model:
           name: SubmitFileModel
           schema:
