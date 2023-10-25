@@ -1,3 +1,20 @@
+## [1.7.5](https://github.com/mdrijwan/submission-portal-api/compare/v1.7.4...v1.7.5) (2023-10-25)
+
+
+### :bug: Bug Fixes
+
+* **serverless:** fixing sls config ([57c0db1](https://github.com/mdrijwan/submission-portal-api/commit/57c0db1f3b71d141e8904177b700258384f48e27))
+
+
+### :zap: Refactor
+
+* **uploadinfo:** handling error for empty items ([50b4779](https://github.com/mdrijwan/submission-portal-api/commit/50b477939b7a7c57d9519a9b27ed6d7571f44de3))
+
+
+### :repeat: CI
+
+* **config:** updating release configuration for changelog ([fd68189](https://github.com/mdrijwan/submission-portal-api/commit/fd681895fece2e1cb7831b0e3a6f919908a77ebb))
+
 ## [1.7.4](https://github.com/mdrijwan/submission-portal-api/compare/v1.7.3...v1.7.4) (2023-10-20)
 
 ## [1.7.3](https://github.com/mdrijwan/submission-portal-api/compare/v1.7.2...v1.7.3) (2023-10-20)
