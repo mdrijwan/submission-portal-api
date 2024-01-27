@@ -1,5 +1,22 @@
 ChangeLogs
 
+## [1.7.7](https://github.com/mdrijwan/submission-portal-api/compare/v1.7.6...v1.7.7) (2024-01-27)
+
+
+### :memo: Documentation
+
+* adding changelog ([2fc3c9d](https://github.com/mdrijwan/submission-portal-api/commit/2fc3c9d0eee5eaafea44829c09abebba4798f772))
+
+
+### :zap: Refactor
+
+* **swagger:** updating api documentation ([c9a71cc](https://github.com/mdrijwan/submission-portal-api/commit/c9a71cc7b38bd179f9387fa41dd4916bd759ed3e))
+
+
+### :dependabot: Build
+
+* updating package version ([4fc9f61](https://github.com/mdrijwan/submission-portal-api/commit/4fc9f61f0a8fc696b1ec1097fbb4377ffb1e764d))
+
 ## [1.7.6](https://github.com/mdrijwan/submission-portal-api/compare/v1.7.5...v1.7.6) (2023-10-25)
 
 
