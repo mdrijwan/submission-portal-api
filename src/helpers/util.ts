@@ -44,10 +44,16 @@ export const createData = async function (item) {
       files: item.files,
     },
   }
-  const command = new PutCommand(input)
-  await docClient.send(command)
+  try {
+    const command = new PutCommand(input)
+    const response = await docClient.send(command)
+    console.log('Document created', response)
 
-  return item
+    return item
+  } catch (error) {
+    console.log('ERROR', error)
+    return error
+  }
 }
 
 export const getUploadData = async function (uploadId, userId) {
@@ -63,9 +69,13 @@ export const getUploadData = async function (uploadId, userId) {
     const command = new GetCommand(input)
     const result = await docClient.send(command)
 
-    if (result.Item) {
+    if (!result.Item) {
+      return 'No Items were matched against the UserId'
+    } else {
       item = Object.assign(result.Item)
     }
+
+    // console.log('ITEM', item)
 
     return item
   } catch (error) {
@@ -94,6 +104,7 @@ export const getUserData = async function (email) {
 export const s3Upload = async function (params: s3ParamsModel) {
   try {
     await s3.send(new PutObjectCommand(params))
+    console.log('Document uploaded')
     const location = `s3://${params.Bucket}/${params.Key}`
     const key = params.Key
     const response = await s3Info(params)

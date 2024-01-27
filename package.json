@@ -1,6 +1,6 @@
 {
   "name": "submission-portal-api",
-  "version": "1.7.1",
+  "version": "1.7.5",
   "description": "upload files and get information back to user",
   "main": "index.js",
   "scripts": {
@@ -40,6 +40,8 @@
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
     "commitizen": "^4.3.0",
+    "conventional-changelog": "^5.1.0",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
     "conventional-changelog-eslint": "^5.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.51.0",

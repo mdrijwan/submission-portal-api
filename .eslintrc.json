@@ -20,6 +20,6 @@
     "semi": ["error", "never"],
     "quotes": ["error", "single"],
     "no-multi-spaces": "error",
-    "object-property-newline": ["error"]
+    "object-property-newline": ["warn"]
   }
 }

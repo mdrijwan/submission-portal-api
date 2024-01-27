@@ -4,19 +4,11 @@ import { ErrorType, StatusCode } from '../helpers/enums'
 
 export const getUpload = async (event: APIGatewayProxyEvent) => {
   try {
-    const uploadId = process.env.IS_OFFLINE
-      ? event.pathParameters.uploadId
-      : event.requestContext.authorizer.claims.sub
-
+    const uploadId = event.pathParameters.uploadId
     const userId = process.env.IS_OFFLINE
       ? event.headers.userId
       : event.requestContext.authorizer.claims.sub
-
-    console.log('UPLOAD ID', uploadId)
-    console.log('USER ID', userId)
-
     const result = await getUploadData(uploadId, userId)
-    console.log('RESULT', result)
 
     return formatResponse(StatusCode.SUCCESS, result)
   } catch (error) {
